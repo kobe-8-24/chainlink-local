@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 15 October 2024
+
+### Dependencies
+
+| Package                   | Version |
+| ------------------------- | ------- |
+| @chainlink/contracts-ccip | 1.5.0   |
+| @chainlink/contracts      | 1.1.1   |
+
+### Services
+
+- [x] Chainlink CCIP
+- [x] Chainlink CCIP v1.5
+- [x] Chainlink Data Feeds
+- [ ] Chainlink Automation
+- [ ] Chainlink VRF 2
+- [ ] Chainlink VRF 2.5
+
+### Added
+
+- Support for Chainlink CCIP v1.5 (bumped `@chainlink/contracts-ccip` to
+  `1.5.0`)
+- Added CCIP v1.5 config details to `Register.sol` for all available testnet
+  lanes
+- Set EVM Version strictly to `paris` for all contracts
+- Added `supportNewTokenViaOwner` and `supportNewTokenViaGetCCIPAdmin` functions
+  to `CCIPLocalSimulator.sol` instead of `supportNewToken` function
+- Added `rmnProxyAddress`, `tokenAdminRegistryAddress` and
+  `registryModuleOwnerCustomAddress` to the `NetworkDetails` struct of the
+  `Register.sol` smart contract
+- Added unit tests for new functions in the `CCIPLocalSimulator.sol` contract
+- Added e2e test for new changes in the `CCIPLocalSimulatorFork.sol` contract.
+  There is a test with ERC-20 token with an `owner()` function implemented and
+  Burn & Mint Pool, and test with ERC-20 token with a `getCCIPAdmin()` function
+  implemented and Lock & Release Pool
+- Genereted new docs artifacts
+
+### Changed
+
+- Bumped Solidity compiler version from 0.8.19 to 0.8.24
+- The `getSupportedTokens()` function now only exists in the
+  `CCIPLocalSimulator.sol` contract, it has been removed from the CCIP's
+  `Router.sol` contract. Calling that function from the `Router.sol` contract in
+  the Forking mode will now revert
+- Added `uint32[] memory tokenGasOverrides` as function parameter to the
+  `executeSingleMessage` function in the `CCIPLocalSimulatorFork.sol` contract
+  to reflect new changes in the CCIP's `EVM2EVMOffRamp.sol` smart contract
+- Bumped pragma solidity version of `BasicTokenSender.sol`,
+  `CCIPReceiver_Unsafe.sol`, `ProgrammableTokenTransfers` and
+  `ProgrammableDefensiveTokenTransfers.sol` contracts from the `src/test` folder
+  from `0.8.19` to `0.8.24`
+
+### Removed
+
+- Removed `supportNewToken` function from `CCIPLocalSimulator.sol`
+- Removed `CCIPLocalSimulatorV0.sol` and `MockEvm2EvmOffRamp.sol` contracts as
+  they have not being used for a while
+- Removed `DOCUMENTATION.md` file since the official documentation is now
+  available at https://docs.chain.link/chainlink-local
+- Removed `remix-001.png` and `remix-002.png` images from the `assets` folder,
+  because they are no longer needed
+
 ## [0.2.2-beta.1] - 10 October 2024
 
 ### Dependencies
@@ -208,3 +270,4 @@ and this project adheres to
   https://github.com/smartcontractkit/chainlink-local/releases/tag/v0.2.2-beta.0
 [0.2.2-beta.1]:
   https://github.com/smartcontractkit/chainlink-local/releases/tag/v0.2.2-beta.1
+[0.2.2]: https://github.com/smartcontractkit/chainlink-local/releases/tag/v0.2.2
