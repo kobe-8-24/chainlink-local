@@ -7,6 +7,7 @@
     "src/**/*.sol",
     "!src/test/**/*",
     "scripts/ccipLocalSimulatorFork.js",
+    "scripts/data-streams/**/*.js",
     "abi/**/*.json"
   ],
   "repository": {
